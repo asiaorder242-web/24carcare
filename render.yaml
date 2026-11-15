@@ -1,0 +1,26 @@
+# Render Blueprint: PRIVATE TEMPORARY PREVIEW (free plan). Test data only; not for production.
+services:
+  - type: web
+    name: 24carcare-preview
+    runtime: node
+    plan: free
+    buildCommand: echo "nothing to build"
+    startCommand: node server.js
+    healthCheckPath: /healthz
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: PREVIEW_MODE
+        value: "1"
+      - key: TRUST_PROXY
+        value: "1"
+      - key: PREVIEW_USER
+        value: preview
+      - key: PREVIEW_PASSWORD
+        sync: false
+      - key: ADMIN_EMAIL
+        value: admin@24carcare.co.uk
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: SESSION_SECRET
+        generateValue: true

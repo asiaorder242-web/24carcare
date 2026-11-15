@@ -1,0 +1,6 @@
+(()=>{const {T,P}=window.__PRICING,$=s=>document.querySelector(s);const lab={small:'Small',medium:'Medium',large:'Large'};
+function show(z){document.querySelectorAll('.size').forEach(b=>b.setAttribute('aria-pressed',b.dataset.size===z));$('#sizelabel').textContent='· '+lab[z]+' vehicle';
+$('#pkgcards').innerHTML=Object.keys(P).map(k=>{const p=P[k],c=T[z][k];return `<article class="card${p.popular?' pop':''}" id="${k}">${p.popular?'<span class="badge">Most popular</span>':''}<h3>${p.name}</h3><p class="mut">${p.tag}</p><div class="price">£${Math.round(c/100)}</div><p>${p.desc}</p><p><b>${p.duration||'Duration confirmed at booking'}</b></p><ul class="ticks">${p.includes.map(i=>`<li>${i}</li>`).join('')}</ul>${k==='quick'?'<p class="warn">Exterior only. Interior cleaning not included.</p>':''}<a class="btn" href="/book?size=${z}&service=${k}">SELECT SERVICE</a></article>`}).join('');
+$('#pkgs').hidden=false;sessionStorage.setItem('size',z);history.replaceState(null,'','#'+z)}
+document.querySelectorAll('.size').forEach(b=>b.addEventListener('click',()=>{show(b.dataset.size);$('#pkgs').scrollIntoView({behavior:'smooth'})}));
+const h=location.hash.slice(1),s=lab[h]?h:sessionStorage.getItem('size');if(s&&lab[s])show(s);else if(P[h]){/* package anchor: pick size first */}})();
